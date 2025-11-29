@@ -1,0 +1,121 @@
+import streamlit as st
+from datetime import datetime
+
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if "name" not in st.session_state:
+    st.session_state.name = ""
+
+if "age" not in st.session_state:
+    st.session_state.age = ""
+
+if "mylist" not in st.session_state:
+    st.session_state.mylist = []
+
+if "ylist" not in st.session_state:
+    st.session_state.ylist = []
+
+if "schedule" not in st.session_state:
+    st.session_state.schedule = {}
+
+menu_bar = st.sidebar.selectbox("Menu", ["Home", "About", "Help"])
+
+if menu_bar == "Home":
+
+    if not st.session_state.logged_in:
+        st.title("Task Manager Login")
+
+        name = st.text_input("Enter Your Username")
+        age = st.text_input("Enter Your Password")
+        if st.button("Submit"):
+            if name.strip() == "Pruthviraj" and age.strip() == "1234":
+                st.session_state.name = name
+                st.session_state.age = age
+                st.session_state.logged_in = True
+                st.success("Login Successful!")
+                st.rerun()
+            else:
+                st.error("Username Or Password Is Incorrect.")
+
+    else:
+        st.title(f"Welcome {st.session_state.name}")
+        st.subheader("Daily Task Monitor")
+
+        menu = st.selectbox("Choose an option", 
+                            ["Add New Task", "Delete Task", "View Tasks", "Mark Complete", "Schedule Task"])
+
+        if menu == "Add New Task":
+            new_task = st.text_input("Enter a new task")
+            if st.button("Add Task"):
+                if new_task.strip() != "":
+                    st.session_state.mylist.append(new_task)
+                    st.success("Task added successfully!")
+                else:
+                    st.error("Task cannot be empty!")
+
+        elif menu == "Delete Task":
+            if len(st.session_state.mylist) == 0:
+                st.info("No tasks available to delete.")
+            else:
+                task_to_del = st.selectbox("Select task to delete", st.session_state.mylist)
+                if st.button("Delete"):
+                    st.session_state.mylist.remove(task_to_del)
+                    st.success("Task deleted!")
+
+        elif menu == "View Tasks":
+            st.write("### Pending Tasks:")
+            if len(st.session_state.mylist) == 0:
+                st.info("No pending tasks.")
+            else:
+                for i, t in enumerate(st.session_state.mylist, start=1):
+                    st.write(f"{i}. {t}")
+
+            st.write("### Completed Tasks:")
+            if len(st.session_state.ylist) == 0:
+                st.info("No completed tasks yet.")
+            else:
+                for i, t in enumerate(st.session_state.ylist, start=1):
+                    st.write(f"{i}. {t}")
+
+            st.write("### Scheduled Tasks:")
+            if len(st.session_state.schedule) == 0:
+                st.info("No scheduled tasks.")
+            else:
+                for task, time in st.session_state.schedule.items():
+                    st.write(f"- {task} at {time}")
+
+        elif menu == "Mark Complete":
+            if len(st.session_state.mylist) == 0:
+                st.info("No tasks to complete.")
+            else:
+                task_to_mark = st.selectbox("Select task to mark complete", st.session_state.mylist)
+                if st.button("Mark Complete"):
+                    st.session_state.mylist.remove(task_to_mark)
+                    st.session_state.ylist.append(task_to_mark)
+                    st.success("Task marked as completed!")
+
+        elif menu == "Schedule Task":
+            if len(st.session_state.mylist) == 0:
+                st.info("No tasks to schedule.")
+            else:
+                task_to_schedule = st.selectbox("Select task to schedule", st.session_state.mylist)
+                date = st.date_input("Choose date")
+                time = st.time_input("Choose time")
+                if st.button("Schedule"):
+                    schedule_time = f"{date} {time}"
+                    st.session_state.schedule[task_to_schedule] = schedule_time
+                    st.success("Task scheduled!")
+
+        if st.button("Logout"):
+            st.session_state.logged_in = False
+            st.session_state.name = ""
+            st.rerun()
+
+elif menu_bar == "About":
+    st.title("About")
+    st.write("This is a Task Manager App built using Streamlit.")
+
+elif menu_bar == "Help":
+    st.title("Help")
+    st.write("Use the Home page to login and manage your tasks.")
