@@ -1,0 +1,35 @@
+print("Here's Your Basic ATM\n")
+attempts = 0
+balance = 100000
+while attempts < 3:
+    pin = int(input("Please Enter Your Pin To Login Your Account\n"))
+    if pin == 6789:
+        print(f"\nAccount Holder : Pruthviraj Girase.\nAccount Balance : {balance}")
+        while True:
+            print("""\nChoose an option:\n1. Withdraw\n2. Credit (Deposit)\n3. Check Balance\n4. Exit\n""")
+            choice = int(input("Enter Your Choice: "))
+            if choice == 1:
+                dp = int(input("Enter Amount To Withdraw: "))
+                if dp > balance:
+                    print("\nInsufficient Balance!")
+                else:
+                    balance -= dp
+                    print(f"\nTransaction Successful!\nUpdated Balance : {balance}")
+            elif choice == 2:
+                credit = int(input("Enter Amount To Deposit: "))
+                balance += credit
+                print(f"\nAmount Credited Successfully!\nUpdated Balance: {balance}")
+            elif choice == 3:
+                print(f"\nYour Current Balance : {balance}")
+            elif choice == 4:
+                print("\nThank You For Using Our ATM!")
+                break
+            else:
+                print("Invalid Option, Try Again.\n")
+        break
+    else:
+        attempts += 1
+        if attempts == 3:
+            print("\nYour Account Has Been Blocked Due To Multiple Incorrect Attempts.")
+        else:
+            print(f"Incorrect Pin ({3 - attempts} attempts left)\n")
