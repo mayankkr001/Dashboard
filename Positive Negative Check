@@ -1,0 +1,14 @@
+while True:
+    num = int(input("Enter a Number: "))
+
+    if num > 0:
+        print(f"{num} is Positive")
+    elif num < 0:
+        print(f"{num} is Negative")
+    else:
+        print("It is 0")
+
+    again = input("\nDo you want to run again? (y/n): ")
+    if again.lower() != "y":
+        print("\nProgram ended. Goodbye!")
+        break
