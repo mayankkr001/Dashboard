@@ -1,0 +1,27 @@
+while True:
+    print("\nBasic Calculator")
+
+    print("""\nChoose an Operator:\n1. Multiplication\n2. Subtraction\n3. Division\n4. Addition\n5. Exit""")
+
+    k = int(input("Enter Option (1-5): "))
+
+    if k == 5:
+        print("\nCalculator Closed. Goodbye!")
+        break
+
+    a = float(input("Enter First Number: "))
+    b = float(input("Enter Second Number: "))
+
+    if k == 1:
+        print("Result:", a * b)
+    elif k == 2:
+        print("Result:", a - b)
+    elif k == 3:
+        if b == 0:
+            print("Error: Division by zero is not allowed!")
+        else:
+            print("Result:", a / b)
+    elif k == 4:
+        print("Result:", a + b)
+    else:
+        print("Invalid Input, Please Choose Between (1-5)")
