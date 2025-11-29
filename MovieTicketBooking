@@ -1,0 +1,24 @@
+while True:
+    age = int(input("Enter Your Age: "))
+    if age >= 18:
+        ticket = input("Do you have a movie ticket? (y/n): ")
+        if ticket == "y":
+            print("\nYou are allowed to watch the movie.")
+        elif ticket == "n":
+            print("\nYou cannot watch the movie without a ticket.")
+        else:
+            print("\nYou Haven't Entered Anything.")
+    elif age >= 15 and age < 18:
+        print("\nYou can watch the movie only with parents.")
+        ticket = input("Do you have a movie ticket? (y/n): ")
+        parents = input("Are your parents with you? (y/n): ")
+        if ticket == "y" and parents == "y":
+            print("\nYou are allowed to watch the movie with your parents.")
+        else:
+            print("\nYou are NOT allowed to watch the movie.")
+    else:
+        print("\nYou are too young to watch the movie.")
+    again = input("\nDo you want to run again? (y/n): ")
+    if again.lower() != "y":
+        print("\nProgram ended. Goodbye!")
+        break
