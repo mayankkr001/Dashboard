@@ -29,7 +29,7 @@ if menu_bar == "Home":
         name = st.text_input("Enter Your Username")
         age = st.text_input("Enter Your Password")
         if st.button("Submit"):
-            if name.strip() == "Pruthviraj" and age.strip() == "1234":
+            if name.strip() == "Mayank" and age.strip() == "1234":
                 st.session_state.name = name
                 st.session_state.age = age
                 st.session_state.logged_in = True
