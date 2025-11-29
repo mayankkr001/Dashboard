@@ -1,0 +1,20 @@
+from twilio.rest import Client
+
+account_sid = ""
+auth_token = ""
+
+client = Client(account_sid, auth_token)
+
+from_whatsapp_number = "whatsapp:"
+to_whatsapp_number = "whatsapp:"
+
+message_body = "Hello This is Prthviraj."
+
+message = client.messages.create(
+    body=message_body,
+    from_=from_whatsapp_number,
+    to=to_whatsapp_number
+)
+
+print("Message Status:", message.status)
+print("Message SID:", message.sid)
